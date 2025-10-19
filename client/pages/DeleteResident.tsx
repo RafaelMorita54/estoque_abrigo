@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import { toast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router";
-import { residents } from "../../mocks/residents";
+import { useNavigate } from "react-router-dom";
+import { patients } from "../../mocks/patients";
 
 export default function DeleteMedicine() {
   const [selectedResident, setSelectedResident] = useState("");
@@ -60,8 +60,8 @@ export default function DeleteMedicine() {
               "
             >
               <option value="">Escolha</option>
-              {residents.map((m) => (
-                <option key={m.name} value={m.name}>  
+              {patients.map((m) => (
+                <option key={m.name} value={m.name}>
                   {m.name}
                 </option>
               ))}

@@ -1,7 +1,7 @@
 import { CabinetCategory } from "@/enums/enums";
+import { Cabinet } from "@/interfaces/interfaces";
 
-
-export const cabinets = [
+export const cabinets: Cabinet[] = [
   {
     id: 1,
     category: CabinetCategory.PSICOTROPICOS_E_INJECOES,

@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import { cabinets } from "../../mocks/cabinets";
 import { CabinetCategory } from "@/enums/enums";
+import { useLocation } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 export default function EditCabinet() {
+  const location = useLocation();
+  const item = location.state?.item;
+
   const [selectedCabinet, setSelectedCabinet] = useState<any>(null);
   const [formData, setFormData] = useState({
     id: 0,
     category: "",
     description: "",
   });
+
+  useEffect(() => {
+    if (item) {
+      setSelectedCabinet(item);
+      setFormData({
+        id: item.id,
+        category: item.category,
+        description: item.description || "",
+      });
+    }
+  }, [item]);
 
   const handleSelectChange = (value: string) => {
     const cabinet = cabinets.find((c) => c.id === parseInt(value));
@@ -26,14 +42,29 @@ export default function EditCabinet() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSave = () => {
-    if (!selectedCabinet) return alert("Selecione um armário primeiro.");
-    alert(`Armário ${formData.id} atualizado com sucesso!`);
+    if (!selectedCabinet) {
+      toast({
+        title: "Campos obrigatórios",
+        description: "Preencha todos os campos para cadastrar o equipamento.",
+        variant: "warning",
+      });
+      return;
+    }
+
+    toast({
+      title: "Campos obrigatórios",
+      description: `Armário ${formData.id} atualizado com sucesso!`,
+      variant: "success",
+    });
+    return;
   };
 
   return (
@@ -72,7 +103,7 @@ export default function EditCabinet() {
                 name="id"
                 value={formData.id}
                 onChange={handleChange}
-                className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sky-300 focus:outline-none"
+                className="w-full border bg-white rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sky-300 focus:outline-none"
               />
             </div>
 
@@ -84,7 +115,7 @@ export default function EditCabinet() {
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sky-300 focus:outline-none"
+                className="w-full border bg-white rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sky-300 focus:outline-none"
               >
                 {Object.entries(CabinetCategory).map(([key, label]) => (
                   <option key={key} value={label}>

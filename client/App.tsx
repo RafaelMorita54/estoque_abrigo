@@ -12,7 +12,7 @@ import SignUpMedicine from "./pages/RegisterMedicine";
 import Transactions from "./pages/Transactions";
 import Stock from "./pages/Stock";
 import StockEntry from "./pages/StockIn";
-import Resident from "./pages/Resident";
+import Resident from "./pages/Residents";
 import NotFound from "./pages/NotFound";
 import RegisterResident from "./pages/RegisterResident";
 import DeleteResident from "./pages/DeleteResident";
@@ -21,13 +21,14 @@ import StockOut from "./pages/StockOut";
 import EditMedicine from "./pages/EditMedicine";
 import DeleteMedicine from "./pages/DeleteMedicine";
 import Equipments from "./pages/Equipments";
-import SignUpEquipment from "./pages/RegisterEquipment";
 import EditEquipment from "./pages/EditEquipment";
 import DeleteEquipment from "./pages/DeleteEquipment";
 import Medicines from "./pages/Medicines";
+import Cabinets from "./pages/Cabinets";
 import RegisterCabinet from "./pages/RegisterCabinet";
 import EditCabinet from "./pages/EditCabinet";
 import DeleteCabinet from "./pages/DeleteCabinet";
+import RegisterEquipment from "./pages/RegisterEquipment";
 
 const queryClient = new QueryClient();
 
@@ -47,19 +48,20 @@ const App = () => (
           <Route path="/medicines/edit" element={<EditMedicine />} />
           <Route path="/medicines/delete" element={<DeleteMedicine />} />
           <Route path="/stock" element={<Stock />} />
-          <Route path="/stock/entry" element={<StockEntry />} />
+          <Route path="/stock/in" element={<StockEntry />} />
           <Route path="/stock/out" element={<StockOut />} />
-          <Route path="/resident" element={<Resident />} />
-          <Route path="/resident/register" element={<RegisterResident />} />
-          <Route path="/resident/edit" element={<EditResident />} />
-          <Route path="/resident/delete" element={<DeleteResident />} />
+          <Route path="/residents" element={<Resident />} />
+          <Route path="/residents/register" element={<RegisterResident />} />
+          <Route path="/residents/edit" element={<EditResident />} />
+          <Route path="/residents/delete" element={<DeleteResident />} />
           <Route path="/equipments" element={<Equipments />} />
-          <Route path="/equipments/register" element={<SignUpEquipment />} />
+          <Route path="/equipments/register" element={<RegisterEquipment />} />
           <Route path="/equipments/edit" element={<EditEquipment />} />
           <Route path="/equipments/delete" element={<DeleteEquipment />} />
-          <Route path="/cabinet/register" element={<RegisterCabinet />} />
-          <Route path="/cabinet/edit" element={<EditCabinet />} />
-          <Route path="/cabinet/delete" element={<DeleteCabinet />} />
+          <Route path="/cabinets" element={<Cabinets />} />
+          <Route path="/cabinets/register" element={<RegisterCabinet />} />
+          <Route path="/cabinets/edit" element={<EditCabinet />} />
+          <Route path="/cabinets/delete" element={<DeleteCabinet />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
