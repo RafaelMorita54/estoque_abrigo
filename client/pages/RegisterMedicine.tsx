@@ -6,35 +6,27 @@ import { medicines } from "../../mocks/medicines";
 
 export default function SignUpMedicine() {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
-    activeIngredient: "",
-    manufacturer: "",
+    substance: "",
     dosageValue: "",
-    unit: "",
-    administrationForm: "",
-    minStock: "",
+    measuremeUnit: "",
+    minimumStock: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const {
-      name,
-      activeIngredient,
-      manufacturer,
-      dosageValue,
-      administrationForm,
-      minStock,
-    } = formData;
+    const { name, substance, dosageValue, measuremeUnit, minimumStock } =
+      formData;
 
     if (
       !name ||
-      !activeIngredient ||
-      !manufacturer ||
+      !substance ||
       !dosageValue ||
-      !administrationForm ||
-      !minStock
+      !measuremeUnit ||
+      !minimumStock
     ) {
       toast({
         title: "Campos obrigatórios",
@@ -46,7 +38,7 @@ export default function SignUpMedicine() {
 
     toast({
       title: "Medicamento cadastrado!",
-      description: `${name} (${formData.dosageValue}${formData.unit}) foi registrado com sucesso.`,
+      description: `${name} (${dosageValue}${measuremeUnit}) foi registrado com sucesso.`,
       variant: "success",
     });
 
@@ -56,12 +48,10 @@ export default function SignUpMedicine() {
   const clearForm = () => {
     setFormData({
       name: "",
-      activeIngredient: "",
-      manufacturer: "",
+      substance: "",
       dosageValue: "",
-      unit: "",
-      administrationForm: "",
-      minStock: "",
+      measuremeUnit: "",
+      minimumStock: "",
     });
   };
 
@@ -75,15 +65,14 @@ export default function SignUpMedicine() {
     if (selected) {
       const match = selected.dosage.match(/^(\d+(?:,\d+)?)([a-zA-Z]+)$/);
       const dosageValue = match ? match[1] : "";
-      const unit = match ? match[2] : "";
+      const measuremeUnit = match ? match[2] : "";
 
       setFormData({
-        ...formData,
         name: selected.name,
-        activeIngredient: selected.active,
+        substance: selected.substance,
         dosageValue,
-        unit,
-        administrationForm: selected.form,
+        measuremeUnit,
+        minimumStock: selected.minimumStock.toString(),
       });
     } else {
       setFormData({ ...formData, name: value });
@@ -107,138 +96,59 @@ export default function SignUpMedicine() {
               value={formData.name}
               onChange={(e) => handleMedicineSelect(e.target.value)}
               placeholder="Selecione ou digite um medicamento"
-              className="
-                w-full
-                border border-slate-300
-                rounded-lg
-                p-2.5
-                text-sm
-                bg-white
-                text-slate-800
-                shadow-sm
-                transition
-                focus:outline-none
-                focus:ring-2
-                focus:ring-sky-300
-                hover:border-slate-400
-              "
+              className="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-300 hover:border-slate-400"
             />
             <datalist id="lista-medicamentos">
               {medicines.map((m) => (
-                <option key={m.name} value={m.name} />
+                <option key={m.id} value={m.name} />
               ))}
             </datalist>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">
-              Princípio ativo
+              Princípio Ativo
             </label>
             <input
               type="text"
-              value={formData.activeIngredient}
+              value={formData.substance}
               onChange={(e) =>
-                setFormData({ ...formData, activeIngredient: e.target.value })
+                setFormData({ ...formData, substance: e.target.value })
               }
               placeholder="Paracetamol"
-              className="
-                w-full
-                border border-slate-300
-                rounded-lg
-                p-2.5
-                text-sm
-                bg-white
-                text-slate-800
-                shadow-sm
-                transition
-                focus:outline-none
-                focus:ring-2
-                focus:ring-sky-300
-                hover:border-slate-400
-              "
+              className="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-300 hover:border-slate-400"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
-              Fabricante
-            </label>
-            <input
-              type="text"
-              value={formData.manufacturer}
-              onChange={(e) =>
-                setFormData({ ...formData, manufacturer: e.target.value })
-              }
-              placeholder="EMS, Neo Química..."
-              className="
-                w-full
-                border border-slate-300
-                rounded-lg
-                p-2.5
-                text-sm
-                bg-white
-                text-slate-800
-                shadow-sm
-                transition
-                focus:outline-none
-                focus:ring-2
-                focus:ring-sky-300
-                hover:border-slate-400
-              "
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
-              Dosagem
-            </label>
-            <div className="flex items-center gap-3">
+          {/* Dosagem e unidade */}
+          <div className="flex items-center gap-3">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Dosagem
+              </label>
               <input
                 type="text"
                 value={formData.dosageValue}
                 onChange={(e) =>
                   setFormData({ ...formData, dosageValue: e.target.value })
                 }
-                className="
-                  w-24
-                  border border-slate-300
-                  rounded-lg
-                  p-2.5
-                  text-sm
-                  bg-white
-                  text-slate-800
-                  shadow-sm
-                  transition
-                  focus:outline-none
-                  focus:ring-2
-                  focus:ring-sky-300
-                  hover:border-slate-400
-                "
                 placeholder="500"
+                className="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-300 hover:border-slate-400"
               />
+            </div>
 
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Unidade
+              </label>
               <select
-                value={formData.unit}
+                value={formData.measuremeUnit}
                 onChange={(e) =>
-                  setFormData({ ...formData, unit: e.target.value })
+                  setFormData({ ...formData, measuremeUnit: e.target.value })
                 }
-                className="
-                  w-28
-                  border border-slate-300
-                  rounded-lg
-                  p-2.5
-                  text-sm
-                  bg-white
-                  text-slate-800
-                  shadow-sm
-                  transition
-                  focus:outline-none
-                  focus:ring-2
-                  focus:ring-sky-300
-                  hover:border-slate-400
-                "
+                className="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-300 hover:border-slate-400"
               >
-                <option value="">Unidade</option>
+                <option value="">Selecione</option>
                 <option value="mg">mg</option>
                 <option value="ml">ml</option>
                 <option value="g">g</option>
@@ -249,62 +159,16 @@ export default function SignUpMedicine() {
 
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">
-              Forma de administração
-            </label>
-            <input
-              type="text"
-              value={formData.administrationForm}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  administrationForm: e.target.value,
-                })
-              }
-              placeholder="Comprimido, xarope..."
-              className="
-                w-full
-                border border-slate-300
-                rounded-lg
-                p-2.5
-                text-sm
-                bg-white
-                text-slate-800
-                shadow-sm
-                transition
-                focus:outline-none
-                focus:ring-2
-                focus:ring-sky-300
-                hover:border-slate-400
-              "
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
               Estoque mínimo
             </label>
             <input
               type="number"
-              value={formData.minStock}
+              value={formData.minimumStock}
               onChange={(e) =>
-                setFormData({ ...formData, minStock: e.target.value })
+                setFormData({ ...formData, minimumStock: e.target.value })
               }
               placeholder="10"
-              className="
-                w-full
-                border border-slate-300
-                rounded-lg
-                p-2.5
-                text-sm
-                bg-white
-                text-slate-800
-                shadow-sm
-                transition
-                focus:outline-none
-                focus:ring-2
-                focus:ring-sky-300
-                hover:border-slate-400
-              "
+              className="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-300 hover:border-slate-400"
             />
           </div>
 

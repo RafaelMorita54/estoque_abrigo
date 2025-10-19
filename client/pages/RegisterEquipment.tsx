@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 
-export default function SignUpEquipment() {
+export default function RegisterEquipment() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -35,19 +35,33 @@ export default function SignUpEquipment() {
   return (
     <Layout title="Cadastro de Equipamento">
       <div className="max-w-lg mx-auto mt-10 bg-white border border-slate-200 rounded-xl p-8 shadow-sm">
-        <h2 className="text-lg font-semibold text-slate-800 mb-6">Cadastrar Equipamento</h2>
+        <h2 className="text-lg font-semibold text-slate-800 mb-6">
+          Cadastrar Equipamento
+        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {[
-            { label: "Nome do Equipamento", field: "name", placeholder: "Seringa 5ml" },
-            { label: "Categoria", field: "category", placeholder: "Material de Injeção" },
+            {
+              label: "Nome do Equipamento",
+              field: "name",
+              placeholder: "Seringa 5ml",
+            },
+            {
+              label: "Categoria",
+              field: "category",
+              placeholder: "Material de Injeção",
+            },
           ].map(({ label, field, placeholder }) => (
             <div key={field}>
-              <label className="block text-sm font-medium text-slate-700 mb-1">{label}</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                {label}
+              </label>
               <input
                 type="text"
                 value={formData[field as keyof typeof formData]}
-                onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, [field]: e.target.value })
+                }
                 placeholder={placeholder}
                 className="w-full border border-slate-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300"
               />

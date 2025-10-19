@@ -1,14 +1,14 @@
 import Layout from "@/components/Layout";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { OperationType } from "@/enums/enums";
 import { MedicineForm } from "@/components/MedicineForm";
 import { EquipmentForm } from "@/components/EquipmentForm";
 
 export default function StockOut() {
-  const [operationType, setOperationType] = useState<OperationType | "">(
-    OperationType.EQUIPMENT
-  );
+  const [operationType, setOperationType] = useState<
+    OperationType | "Selecione"
+  >("Selecione");
   const navigate = useNavigate();
 
   return (
@@ -42,8 +42,12 @@ export default function StockOut() {
             "
           >
             <option value="">Selecione</option>
-            <option value={OperationType.MEDICINE}>{OperationType.MEDICINE}</option>
-            <option value={OperationType.EQUIPMENT}>{OperationType.EQUIPMENT}</option>
+            <option value={OperationType.MEDICINE}>
+              {OperationType.MEDICINE}
+            </option>
+            <option value={OperationType.EQUIPMENT}>
+              {OperationType.EQUIPMENT}
+            </option>
           </select>
         </div>
 
@@ -52,9 +56,7 @@ export default function StockOut() {
             <h3 className="text-md font-semibold text-slate-800 mb-3">
               Medicamento
             </h3>
-            <MedicineForm
-              onSubmit={(data) => console.log("Saída de medicamento:", data)}
-            />
+            <MedicineForm onSubmit={() => navigate("/stock")} />
           </div>
         )}
 
@@ -63,9 +65,7 @@ export default function StockOut() {
             <h3 className="text-md font-semibold text-slate-800 mb-3">
               Equipamento
             </h3>
-            <EquipmentForm
-              onSubmit={(data) => console.log("Saída de equipamento:", data)}
-            />
+            <EquipmentForm onSubmit={() => navigate("/stock")} />
           </div>
         )}
       </div>

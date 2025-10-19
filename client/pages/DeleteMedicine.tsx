@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import { toast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { medicines } from "../../mocks/medicines";
 
 export default function DeleteMedicine() {
@@ -61,7 +61,7 @@ export default function DeleteMedicine() {
             >
               <option value="">Escolha</option>
               {medicines.map((m) => (
-                <option key={m.name} value={m.name}>  
+                <option key={m.name} value={m.name}>
                   {m.name}
                 </option>
               ))}

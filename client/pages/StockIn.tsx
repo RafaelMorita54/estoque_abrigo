@@ -5,9 +5,9 @@ import { EquipmentForm } from "@/components/EquipmentForm";
 import { OperationType } from "@/enums/enums";
 
 export default function StockIn() {
-  const [operationType, setOperationType] = useState<OperationType | "">(
-    OperationType.MEDICINE
-  );
+  const [operationType, setOperationType] = useState<
+    OperationType | "Selecione"
+  >("Selecione");
 
   return (
     <Layout title="Entrada de Estoque">
@@ -40,8 +40,12 @@ export default function StockIn() {
             "
           >
             <option value="">Selecione</option>
-            <option value={OperationType.MEDICINE}>{OperationType.MEDICINE}</option>
-            <option value={OperationType.EQUIPMENT}>{OperationType.EQUIPMENT}</option>
+            <option value={OperationType.MEDICINE}>
+              {OperationType.MEDICINE}
+            </option>
+            <option value={OperationType.EQUIPMENT}>
+              {OperationType.EQUIPMENT}
+            </option>
           </select>
         </div>
 
