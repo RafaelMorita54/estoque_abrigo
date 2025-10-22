@@ -34,10 +34,12 @@ export function prepareMovements({
           stockType: inventory?.origin,
           patient: patient?.name,
           casela: patient?.casela,
-          cabinet: cabinet?.description,
+          cabinet: cabinet?.id,
           operator: user?.email,
           movementDate: movement.date,
           movementType: movement.type,
+          destinationSector: movement.destinationSector,
+          originSector: movement.originSector,
         };
       }
 
@@ -54,10 +56,12 @@ export function prepareMovements({
           name: eq?.name || "-",
           description: eq?.description || "-",
           quantity: inventory?.quantity,
-          cabinet: cabinet?.description,
+          cabinet: cabinet?.id,
           operator: user?.email,
           movementDate: movement.date,
           movementType: movement.type,
+          destinationSector: movement.destinationSector,
+          originSector: movement.originSector,
         };
       }
 
